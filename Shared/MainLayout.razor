@@ -1,0 +1,45 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+@using GestorPC.Models;
+@using GestorPC.Data.AdminUsuarios;
+@inject NavigationManager NavigationManager
+@inject IRegistrosUsuarios registrosusuarios
+
+<div class="sidebar">
+    <NavMenu />
+</div>
+
+<div class="main">
+    <div class="top-row px-4">
+        @if (Usuario.correo != null && Usuario.contraseña != null)
+        {
+            <table>
+                <tr>
+                    <th>@Usuario.correo</th>
+                    <td>
+                        <input type="button" value="Cerrar Sesion" class="btn btn-secondary" @onclick="CerrarSesion" />
+                    </td>
+                </tr>
+            </table> }
+        else
+        {
+            <a href="/Account/Login">Iniciar sesion</a>
+            <a href="/Account/Register">Registrarse</a>
+        }
+        
+    </div>
+
+    <div class="content px-4">
+        @Body
+    </div>
+</div>
+
+@code{ 
+            Usuario user = new Usuario();
+            private void CerrarSesion()
+            {
+                Usuario.correo = null;
+                Usuario.contraseña = null;
+                NavigationManager.NavigateTo("/");
+            } 
+    }

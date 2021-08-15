@@ -1,0 +1,31 @@
+﻿@page  "/Ventas/Create"
+<h3>Modulo de Ventas</h3>
+<table class="table">
+    <tr>
+        <td>Cedula Cliente:</td>
+        <td><input type="text" class="form-control col-sm-4"></td>
+        <input type="button" style="background-color:lawngreen" value="Empezar Venta" class="btn btn-primary" />
+    </tr>
+    <tr>
+        <td>Computadora:</td>
+        <td>
+        <td><input type="text" class="form-control col-sm-4"></td>
+        </td>
+    </tr>
+    <tr>
+        <td>Precio (En RD$):</td>
+        <td><input type="text" class="form-control col-sm-4"></td>
+        <td>Descuento (En %):</td>
+        <td><input type="text" class="form-control col-sm-4"></td>
+    </tr>
+    <tr>
+        <td>Total de la compra:</td>
+        <td><input type="text" class="form-control col-sm-4"></td>
+    </tr>
+</table>
+<input type="button" style="background-color:lawngreen" value="Finalizar" class="btn btn-primary" />
+<input type="button" style="background-color:red" value="Cancelar" class="btn btn-primary" />
+
+@code {
+    public String nombre;
+}

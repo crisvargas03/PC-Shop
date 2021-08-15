@@ -1,0 +1,84 @@
+﻿@page "/Account/Register"
+
+@using GestorPC.Models;
+@using GestorPC.Data.AdminUsuarios;
+@inject NavigationManager NavigationManager
+@inject IRegistrosUsuarios registrosusuarios
+
+<div class="container">
+    <h1 class="display-6">Registro de Usuarios</h1>
+    <br>
+    <p>
+        Introduzca los datos de su cuenta
+    </p>
+    <br>
+
+    <table class="table">
+        <tr>
+            <td>Nombre:</td>
+            <td><input type="text" class="form-control col-sm-4"  @bind="@usuarios.NombreUsuario"></td>
+            <td>Apellido:</td>
+            <td><input type="text" class="form-control col-sm-4"  @bind="@usuarios.ApellidoUsuario"></td>
+        </tr>
+
+        <tr>
+            <td>Telefono:</td>
+            <td><input type="text" class="form-control col-sm-4"  @bind="@usuarios.TelefonoUsuario"></td>
+        </tr>
+
+        <tr>
+            <td>Correo:</td>
+            <td><input type="text" class="form-control col-sm-4"  @bind="@usuarios.CorreoUsuario"></td>
+        </tr>
+
+
+        <tr>
+            <td>Contraseña:</td>
+            <td><input type="text" class="form-control col-sm-4"  @bind="@usuarios.Contrasena"></td>
+        </tr>
+    </table>
+    <input type="button" style="background-color:orange" value="Registrarse"  class="btn btn-primary"  @onclick="SaveRegistro" />
+    @EstadoUsuario
+</div>
+
+
+@code {
+
+    public Usuarios usuarios = new Usuarios();
+    public String Nombre { get; set; }
+    public String Apellido { get; set; }
+    public String Correo { get; set; }
+    public String Telefono { get; set; }
+    public String Password { get; set; }
+
+    public string EstadoUsuario { get; set; } = "";
+
+
+    protected async Task SaveRegistro()
+    {
+        Correo = usuarios.CorreoUsuario;
+        Nombre = usuarios.NombreUsuario;
+        Apellido = usuarios.ApellidoUsuario;
+        Telefono = usuarios.TelefonoUsuario;
+        Password = usuarios.Contrasena;
+
+        if(Correo.Length > 0 && Nombre.Length > 0 && Apellido.Length > 0 && Telefono.Length > 0 &&  Password.Length > 0)
+        {
+            await registrosusuarios.InsertUser(usuarios);
+
+            EstadoUsuario = "Cuenta Registrada Exitosamente";
+            usuarios.NombreUsuario = "";
+            usuarios.Contrasena = "";
+            usuarios.ApellidoUsuario = "";
+            usuarios.CorreoUsuario = "";
+
+
+            NavigationManager.NavigateTo("/Account/Login");
+        }
+        else
+        {
+            EstadoUsuario = "Campos Vacios. Debe de llenar los campos que faltan antes de registrar la cuenta.";
+        }
+
+    }
+}

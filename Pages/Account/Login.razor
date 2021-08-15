@@ -1,0 +1,64 @@
+﻿@page "/Account/Login"
+
+@inject NavigationManager NavigationManager
+@using GestorPC.Models;
+@using GestorPC.Data.AdminUsuarios;
+@inject NavigationManager NavigationManager
+@inject IRegistrosUsuarios registrosusuarios
+
+
+<div class="container">
+    <h1 class="display-6">Iniciar Sesion</h1>
+    <br>
+    <img src="https://imgur.com/dHElWqE.png" alt="Logo" style="width:300px;height:300px;">
+    <p>
+        Introduzca los datos de su cuenta
+    </p>
+    <br>
+
+    <table class="table">
+        <tr>
+            <td>Correo:</td>
+            <td><input type="email" class="form-control col-sm-4" @bind="@Correo"></td>
+        </tr>
+        <tr>
+            <td>Contraseña:</td>
+            <td><input type="password" class="form-control col-sm-4" @bind="@Contraseña"></td>
+        </tr>
+    </table>
+    <input type="button" style="background-color:lawngreen" value="Log in" class="btn btn-primary" />
+
+    @EstadoUsuario
+</div>
+
+@code {
+    public string Correo { get; set; }
+    public string Contraseña { get; set; }
+    public string EstadoUsuario { get; set; } = "";
+
+    public void LogIn()
+    {
+        var context = new bfzebczn9tgtxtf05ivfContext();
+        var UsuarioActual = context.Usuarios.Where(u => u.CorreoUsuario == Correo && u.Contrasena == Contraseña).FirstOrDefault();
+        bool ExisteRegistro = context.Usuarios.Any(u => u.CorreoUsuario == Correo && u.Contrasena == Contraseña);
+
+        if (ExisteRegistro == true)
+        {
+            if (UsuarioActual != null)
+            {
+                Usuario.correo = UsuarioActual.CorreoUsuario;
+                Usuario.contraseña = UsuarioActual.Contrasena;
+
+                NavigationManager.NavigateTo("/");
+            }
+            else
+            {
+                EstadoUsuario = "El usuario o la Contraseña ingresada son incorrectos";
+            }
+        }
+        else
+        {
+            EstadoUsuario = "El usuario o la Contraseña ingresada son incorrectos";
+        }
+    }
+}
