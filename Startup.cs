@@ -30,6 +30,7 @@ namespace GestorPC
         {
             services.AddRazorPages();
             services.AddServerSideBlazor();
+            services.AddDbContext<bfzebczn9tgtxtf05ivfContext>();
             services.AddSingleton<WeatherForecastService>();
             services.AddScoped<IRegistrosUsuarios, RegistrosUsuarios>();
         }
