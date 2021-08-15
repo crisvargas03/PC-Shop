@@ -1,0 +1,10 @@
+Informacion de la BD: 
+
+Hosteado en Clevercloud
+
+nombre de la DB: bfzebczn9tgtxtf05ivf
+usuario : upwcz2qi6zunfx4u
+clave: AQyDzxsaue0iRRcNq68f
+puerto: 3306
+URI de conexion (por si acaso): 
+mysql://upwcz2qi6zunfx4u:AQyDzxsaue0iRRcNq68f@bfzebczn9tgtxtf05ivf-mysql.services.clever-cloud.com:3306/bfzebczn9tgtxtf05ivf
