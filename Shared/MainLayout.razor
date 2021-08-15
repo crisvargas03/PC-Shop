@@ -1,15 +1,16 @@
-﻿@inherits LayoutComponentBase
+@inherits LayoutComponentBase
 @inject NavigationManager NavigationManager
 @using GestorPC.Models;
 @using GestorPC.Data.AdminUsuarios;
 @inject NavigationManager NavigationManager
 @inject IRegistrosUsuarios registrosusuarios
 
-<div class="sidebar">
+<div class="page">
+   <div class="sidebar">
     <NavMenu />
-</div>
+    </div>
 
-<div class="main">
+   <div class="main">
     <div class="top-row px-4">
         @if (Usuario.correo != null && Usuario.contraseña != null)
         {
@@ -26,12 +27,11 @@
             <a href="/Account/Login">Iniciar sesion</a>
             <a href="/Account/Register">Registrarse</a>
         }
-        
     </div>
-
     <div class="content px-4">
         @Body
     </div>
+</div>
 </div>
 
 @code{ 
@@ -43,3 +43,4 @@
                 NavigationManager.NavigateTo("/");
             } 
     }
+
