@@ -1,3 +1,56 @@
 @page "/CRUD_Clientes/Delete_Clientes"
+@using GestorPC.Models
 
 <h2>Eliminar Clientes</h2>
+<table class="table">
+    <tr>
+        <td>DNI del Cliente </td>
+        <td><input type="text" class="form-control col-sm-5 txt " @bind="client.DniCliente"></td>
+    </tr>
+</table>
+<center>
+    <strong>@Mensaje</strong>
+    <br>
+    <br>
+    <button class="btn btn-primary" style="background-color:#FB0000" @onclick="deletePc"> 
+        <span class="oi oi-trash" aria-hidden="true"></span> Eliminar Cliente
+    </button>
+    <br>
+    <br>
+</center>
+
+@code{
+    Models.Clientes client = new Models.Clientes();
+    List<Models.Clientes> getClients() => new bfzebczn9tgtxtf05ivfContext().Clientes.Where(x => x.DniCliente == client.DniCliente).ToList();
+    string Mensaje;
+    bool exists;
+
+    void deletePc(){
+        using (bfzebczn9tgtxtf05ivfContext cmd_Delete = new bfzebczn9tgtxtf05ivfContext())
+        {
+            if (client.DniCliente == 0)
+            {
+                Mensaje = "Debe Lenar el Campo Dni del Cliente!";
+            }
+            else
+            {
+                foreach (var item in getClients())
+                {
+                    exists = true;
+                }
+                if (exists == true)
+                {
+                    cmd_Delete.Remove(client);
+                    cmd_Delete.SaveChanges();
+                    Mensaje = "Cliente Eliminado!";
+                }
+                else
+                {
+                    Mensaje = "Cliente no encontrado!";
+                }
+            }
+        }
+        client.DniCliente = 0;
+    }
+
+}
