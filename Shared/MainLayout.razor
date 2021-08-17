@@ -6,11 +6,11 @@
 @inject IRegistrosUsuarios registrosusuarios
 
 <div class="page">
-   <div class="sidebar">
+<div class="sidebar">
     <NavMenu />
     </div>
 
-   <div class="main">
+<div class="main">
     <div class="top-row px-4">
         @if (Usuario.correo != null && Usuario.contraseña != null)
         {
@@ -24,8 +24,8 @@
             </table> }
         else
         {
-            <a href="/Account/Login">Iniciar sesion</a>
-            <a href="/Account/Register">Registrarse</a>
+            <a style="color: blue;" href="/Account/Login">Iniciar sesion</a>
+            <a style="color: blue;" href="/Account/Register">Registrarse</a>
         }
     </div>
     <div class="content px-4">

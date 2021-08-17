@@ -1,0 +1,73 @@
+@page "/CRUD_Computadoras/Create_Computadoras"
+@using GestorPC.Models
+
+<h2>Registrar Computadoras</h2>
+<table class="table">
+    <tr>
+        <td>Marca de la Computadora </td>
+        <td><input type="text" class="form-control col-sm-8 txt " @bind="pc.Marca"></td>
+    </tr>
+
+    <tr>
+        <td>Modelo de la Computadora </td>
+        <td><input type="text" class="form-control col-sm-8 txt " @bind="@pc.Modelo"></td>
+    </tr>
+
+    <tr>
+        <td>Color de la Computadora </td>
+        <td><input type="text" class="form-control col-sm-8 txt " @bind="@pc.Color"></td>
+    </tr>
+
+    <tr>
+        <td>Fecha de llegada de la Computadora </td>
+        <td><input type="date" class="form-control col-sm-8 txt " @bind="@pc.FechaLlegada"></td>
+    </tr>
+
+    <tr>
+        <td>Precio de la Computadora </td>
+        <td><input type="text" class="form-control col-sm-6 txt " @bind="@pc.Precio"></td>
+    </tr>
+
+    <tr>
+        <td>Una breve Descripcion de la Computadora: </td>
+        <td> <textarea type="text" class="form-control col-sm-12 txt " @bind="@pc.Descripcion"> </textarea> </td>
+    </tr>
+</table>
+<center>
+    <strong>@Mensaje</strong>
+    <br>
+    <br>
+    <button class="btn btn-primary" style="background-color:#00C738" @onclick="createPc"> 
+        <span class="oi oi-plus" aria-hidden="true"></span> Agregar Computadora
+    </button>
+    <br>
+    <br>
+</center>
+
+<style>
+    .txt{
+        border-color: black;
+    }
+</style>
+
+@code{
+    Models.Computadoras pc = new Models.Computadoras();
+    string Mensaje;
+    void createPc()
+    {
+        if (pc.Marca == null || pc.Modelo == null || pc.Color == null || pc.FechaLlegada == null || pc.Precio == null || pc.Descripcion== null)
+        {
+            Mensaje = "Existen campos vacios, debe llenarlos para poder registar la Computadora";
+        }
+        else{
+            using (bfzebczn9tgtxtf05ivfContext cmd = new bfzebczn9tgtxtf05ivfContext())
+            {
+                cmd.Add(pc);
+                cmd.SaveChanges();
+                Mensaje = "Computadora Registrada con Exito!";
+            }
+        }
+    }
+}
+
+

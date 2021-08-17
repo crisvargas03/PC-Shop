@@ -1,0 +1,117 @@
+@page  "/CRUD_Computadoras/Update_Computadoras"
+@using GestorPC.Models
+
+<h2>Modificar Computadoras</h2>
+<table class="table">
+    <tr>
+        <td>Busque la Computadora a editar </td>
+        <td><input type="text" class="form-control col-sm-8 txt " @bind="pc.IdComputadora"></td>
+        <td>
+            <button class="btn btn-primary" style="background-color:#00C738" @onclick="findPc"> 
+            <span class="oi oi-magnifying-glass" aria-hidden="true"></span> Buscar
+            </button>
+    </td>
+    </tr>
+    <tr>
+        <td>Marca de la Computadora </td>
+        <td><input type="text" class="form-control col-sm-8 txt " @bind="pc.Marca"></td>
+    </tr>
+
+    <tr>
+        <td>Modelo de la Computadora </td>
+        <td><input type="text" class="form-control col-sm-8 txt " @bind="@pc.Modelo"></td>
+    </tr>
+
+    <tr>
+        <td>Color de la Computadora </td>
+        <td><input type="text" class="form-control col-sm-8 txt " @bind="@pc.Color"></td>
+    </tr>
+
+    <tr>
+        <td>Fecha de llegada de la Computadora </td>
+        <td><input type="date" class="form-control col-sm-8 txt " @bind="@pc.FechaLlegada"></td>
+    </tr>
+
+    <tr>
+        <td>Precio de la Computadora </td>
+        <td><input type="text" class="form-control col-sm-6 txt " @bind="@pc.Precio"></td>
+    </tr>
+
+    <tr>
+        <td>Una breve Descripcion de la Computadora: </td>
+        <td> <textarea type="text" class="form-control col-sm-12 txt " @bind="@pc.Descripcion"> </textarea> </td>
+    </tr>
+</table>
+<center>
+    <strong>@Mensaje</strong>
+    <br>
+    <br>
+    <button class="btn btn-primary" style="background-color:#1DB4F5" @onclick="updatePc"> 
+        <span class="oi oi-pencil" aria-hidden="true"></span> Modificar Computadora
+    </button>
+    <br>
+    <br>
+</center>
+
+<style>
+    .txt{
+        border-color: black;
+    }
+</style>
+
+@code {
+    Models.Computadoras pc = new Models.Computadoras();
+    List<Models.Computadoras> getPc() => new bfzebczn9tgtxtf05ivfContext().Computadoras.Where(X => X.IdComputadora == pc.IdComputadora).ToList();
+    
+    bfzebczn9tgtxtf05ivfContext context = new bfzebczn9tgtxtf05ivfContext();
+    string Mensaje;
+    bool exists = false;
+
+    void updatePc()
+    {
+        var pcUpdated = context.Computadoras.FirstOrDefault(x => x.IdComputadora == pc.IdComputadora);
+        pcUpdated.Marca = pc.Marca;
+        pcUpdated.Modelo = pc.Modelo;
+        pcUpdated.Color = pc.Color;
+        pcUpdated.FechaLlegada = pc.FechaLlegada;
+        pcUpdated.Precio = pc.Precio;
+        pcUpdated.Descripcion = pcUpdated.Descripcion;
+        context.SaveChanges();
+        Mensaje = "Computadora modificada exitosamente!";
+    }
+
+    void findPc()
+    {
+        Mensaje = null;
+        using (bfzebczn9tgtxtf05ivfContext Buscar = new bfzebczn9tgtxtf05ivfContext())
+        {
+            if (pc.IdComputadora == 0)
+            {
+                Mensaje = "Debe llenar el campo de Id de la Computadora!";
+            }
+            else
+            {
+                foreach (var item in getPc())
+                {
+                    exists = true;
+                    if (exists)
+                    {
+                        /*
+                        materia.Nombre = item.Nombre;
+                        materia.Creditos = item.Creditos; */
+                        pc.Marca = item.Marca;
+                        pc.Modelo = item.Modelo;
+                        pc.Color = item.Color;
+                        pc.FechaLlegada = item.FechaLlegada;
+                        pc.Precio = item.Precio;
+                        pc.Descripcion = item.Descripcion;
+                    }
+                }
+                if(exists == false)
+                {
+                    Mensaje = "Computadora no Encontrada...";
+                }
+            }
+        }
+    }
+}
