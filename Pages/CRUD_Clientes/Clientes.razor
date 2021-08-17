@@ -1,4 +1,6 @@
 ﻿@page  "/CRUD_Clientes/Clientes"
+@using GestorPC.Models
+
 <h3>Modulo de Clientes</h3>
 <p>Tabla de Clientes:</p>
 
@@ -8,24 +10,47 @@
             <th>DNI del Cliente</th>
             <th>Nombre</th>
             <th>Apellido</th>
-            <th>Correo</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Lugar de Nacimiento</th>
+            <th>Dirreccion</th>
+            <th>Correo del Cliente</th>
+            <th>Telefono del Cliente</th>
         </tr>
     </thead>
+    <tbody>
+        @foreach (var item in getClients())
+        {
+            <tr>
+                <th>@item.DniCliente</th>
+                <th>@item.NombreCliente</th>
+                <th>@item.ApellidoCliente</th>
+                <th>@item.FechaNacimiento</th>
+                <th>@item.LugarNacimiento</th>
+                <th>@item.Direccion</th>
+                <th>@item.CorreoCliente</th>
+                <th>@item.TelefonoCliente</th>
+            </tr>
+        }
+    </tbody>
 
 </table>
 
-<button class="btn btn-primary" style="background-color:#00C738"> 
-    <span class="oi oi-plus" aria-hidden="true"></span> Agregar
-</button>
-<button class="btn btn-primary" style="background-color:#1DB4F5"> 
-    <span class="oi oi-pen" aria-hidden="true"></span> Modificar
-</button>
-<button class="btn btn-primary" style="background-color:#FB0000"> 
-    <span class="oi oi-trash" aria-hidden="true"></span> Eliminar
-</button>
-
+<center>
+    <button class="btn btn-primary" style="background-color:#00C738">
+        <span class="oi oi-plus" aria-hidden="true"></span>
+        <a href="/CRUD_Clientes/Create_Clientes"> Agregar</a>
+    </button>
+    <button class="btn btn-primary" style="background-color:#1DB4F5">
+        <span class="oi oi-pencil" aria-hidden="true"></span>
+        <a href="/CRUD_Clientes/Update_Clientes"> Modificar</a>
+    </button>
+    <button class="btn btn-primary" style="background-color:#FB0000">
+        <span class="oi oi-trash" aria-hidden="true"></span>
+        <a href="/CRUD_Clientes/Delete_Clientes"> Eliminar</a>
+    </button>
+</center>
 
 
 @code {
-
+    List<Models.Clientes> getClients() => new bfzebczn9tgtxtf05ivfContext().Clientes.ToList();
 }

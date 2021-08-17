@@ -1,0 +1,84 @@
+@page "/CRUD_Clientes/Create_Clientes"
+@using GestorPC.Models;
+
+<h2>Registrar Clientes</h2>
+<table class="table">
+    <tr>
+        <td>No. Documento de Identificacion Nacional</td>
+        <td><input type="text" class="form-control col-sm-8 txt " @bind="@client.DniCliente"></td>
+    </tr>
+
+    <tr>
+        <td>Nombre del Cliente </td>
+        <td><input type="text" class="form-control col-sm-8 txt " @bind="@client.NombreCliente"></td>
+    </tr>
+
+    <tr>
+        <td>Apellido del Cliente </td>
+        <td><input type="text" class="form-control col-sm-8 txt " @bind="@client.ApellidoCliente"></td>
+    </tr>
+
+    <tr>
+        <td>Fecha de Nacimiento </td>
+        <td><input type="date" class="form-control col-sm-8 txt " @bind="@client.FechaNacimiento"></td>
+    </tr>
+
+    <tr>
+        <td>Lugar de Nacimiento </td>
+        <td><input type="text" class="form-control col-sm-8 txt " @bind="@client.LugarNacimiento"></td> 
+    </tr>
+
+    <tr>
+        <td>Direccion </td>
+        <td> 
+            <textarea type="text" class="form-control col-sm-12 txt " @bind="@client.Direccion"> </textarea>
+        </td>
+    </tr>
+
+    <tr>
+        <td>Correo del Cliente </td>
+        <td><input type="text" class="form-control col-sm-8 txt " @bind="@client.CorreoCliente"></td>
+    </tr>
+
+    <tr>
+        <td>Telefono del Cliente </td>
+        <td><input type="text" class="form-control col-sm-8 txt " @bind="@client.TelefonoCliente"></td>
+    </tr>
+</table>
+<center>
+    <strong>@Mensaje</strong>
+    <br>
+    <br>
+    <button class="btn btn-primary" style="background-color:#00C738" @onclick="createClient"> 
+        <span class="oi oi-plus" aria-hidden="true"></span> Agregar Computadora
+    </button>
+    <br>
+    <br>
+</center>
+
+<style>
+    .txt{
+        border-color: black;
+    }
+</style>
+
+@code{
+    string Mensaje;
+    Models.Clientes client = new Models.Clientes();
+
+    void createClient()
+    {
+        if (client.DniCliente == 0 || client.NombreCliente == null || client.ApellidoCliente == null || client.FechaNacimiento == null || client.LugarNacimiento == null || client.Direccion == null || client.CorreoCliente == null || client.TelefonoCliente == null)
+        {
+            Mensaje = "Existen campos vacios, debe llenarlos para poder registar el cliente";
+        }
+        else{
+            using (bfzebczn9tgtxtf05ivfContext cmd = new bfzebczn9tgtxtf05ivfContext())
+            {
+                cmd.Add(client);
+                cmd.SaveChanges();
+                Mensaje = "Cliente Registrado con Exito!";
+            }
+        }
+    }
+}
