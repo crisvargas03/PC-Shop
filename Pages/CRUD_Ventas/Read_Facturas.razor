@@ -1,0 +1,32 @@
+﻿@page "/CRUD_Ventas/Read_Facturas"
+<h3>Todas las Facturas en el sistema</h3>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID de la Factura</th>
+            <th>ID de la Computadora</th>
+            <th>ID del Cliente</th>
+            <th>Fecha de la Factura</th>
+            <th>Subtotal</th>
+            <th>Descuento</th>
+            <th>Precio Total</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in getFacturas())
+        {
+        <tr>
+            <th>@item.IdFactura</th>
+            <th>@item.IdComputadora</th>
+            <th>@item.IdUsuario</th>
+            <th>@item.FechaVenta</th>
+            <th>@item.Subtotal</th>
+            <th>@item.Descuento</th>
+            <th>@item.TotalVenta</th>
+        </tr>}
+    </tbody>
+</table>
+
+@code {
+    List<Models.Facturas> getFacturas() => new bfzebczn9tgtxtf05ivfContext().Facturas.ToList();
+}

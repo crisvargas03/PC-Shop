@@ -35,12 +35,13 @@
 </div>
 
 @code{ 
-            Usuario user = new Usuario();
-            private void CerrarSesion()
-            {
-                Usuario.correo = null;
-                Usuario.contraseña = null;
-                NavigationManager.NavigateTo("/");
-            } 
+    Usuario user = new Usuario();
+    private void CerrarSesion()
+    {
+        Usuario.correo = null;
+        Usuario.contraseña = null;
+        Usuario.id = 0;
+        NavigationManager.NavigateTo("/");
+    }
     }
 

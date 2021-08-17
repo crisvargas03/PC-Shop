@@ -1,0 +1,64 @@
+﻿@page  "/CRUD_Ventas/Read_FacturasUser"
+<h3>Tus Facturas.</h3>
+
+@if (Usuario.correo != null && Usuario.contraseña != null)
+{
+    <div class="container">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID de la Factura</th>
+                    <th>ID de la Computadora</th>
+                    <th>Fecha de la Factura</th>
+                    <th>Subtotal</th>
+                    <th>Descuento</th>
+                    <th>Precio Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in getFacturas())
+                {
+                    <tr>
+                        <th>@item.IdFactura</th>
+                        <th>@item.IdComputadora</th>
+                        <th>@item.FechaVenta</th>
+                        <th>@item.Subtotal</th>
+                        <th>@item.Descuento</th>
+                        <th>@item.TotalVenta</th>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+        <center>
+            <button class="btn btn-primary" style="background-color: #1DB4F5">
+                <span class="oi oi-list" aria-hidden="true"></span>
+                <a href="/CRUD_Ventas/Read_Facturas"> Ver todas las Facturas</a>
+            </button>
+            <button class="btn btn-primary" style="background-color:#00C738">
+                <span class="oi oi-plus" aria-hidden="true"></span>
+                <a href="/CRUD_Ventas/Create"> Agregar</a>
+            </button>
+            <button class="btn btn-primary" style="background-color:#FB0000">
+                <span class="oi oi-trash" aria-hidden="true"></span>
+                <a href="/CRUD_Ventas/Delete_Facturas"> Eliminar</a>
+            </button>
+        </center>
+        </div>
+        }
+        else
+        {
+        <div class="container">
+            <h1 class="display-6">Debes Iniciar Sesion con un correo valido para Vizualizar el contenido</h1>
+            <br>
+            <p>
+                Ya tienes una cuenta? Inicia Sesion
+            </p>
+            <a href="/Account/Login">Iniciar sesion</a>
+        </div>}
+
+        @code {
+            Usuario user = new Usuario();
+            List<Models.Facturas> getFacturas() => new bfzebczn9tgtxtf05ivfContext().Facturas.Where(f => f.IdUsuario == Usuario.id).ToList();
+        }

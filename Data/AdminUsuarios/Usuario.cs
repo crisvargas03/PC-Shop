@@ -9,5 +9,7 @@ namespace GestorPC.Data.AdminUsuarios
     {
         static public string correo { get; set; }
         static public string contraseña { get; set; }
+
+        static public long id { get; set; }
     }
 }
